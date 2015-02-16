@@ -5,8 +5,8 @@ library(dplyr)
 library(tidyr)
 library(stringr)
 
-orig_landscape_data <- read.csv("data/object_data.csv")
-name_coordinates <- read.csv("data/location_coordinates.csv")
+orig_landscape_data <- read.csv("object_data.csv")
+name_coordinates <- read.csv("location_coordinates.csv")
 
 # Only use those named coordinates with exact values
 name_coordinates <- name_coordinates %>% filter(!(is.na(longitude) & is.na(latitude)))
@@ -72,4 +72,4 @@ location_data$short_place <- str_match(location_data$place, "(.*) \\(Amsterdam\\
 place_stats$short_place <- str_match(place_stats$place, "(.*) \\(Amsterdam\\)")[,2]
 period_place_stats$short_place <- str_match(period_place_stats$place, "(.*) \\(Amsterdam\\)")[,2]
 
-save(location_data, period_place_stats, file = "data/location_data.RData")
+write.csv(period_place_stats, file = "period_place_stats.csv", row.names = FALSE)
